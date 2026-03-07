@@ -13,6 +13,5 @@ export class CreateExpenseDto {
 
  @IsEnum(ExpenseCategory)
   category!: ExpenseCategory;
- 
 
 }

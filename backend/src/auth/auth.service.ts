@@ -15,8 +15,8 @@ export class AuthService {
   ) {}
 
 
-  async createToken(user: any){
-      const payload={sub:user.id};
+  async createToken(userId: string){
+      const payload={id:userId};
       return this.jwtService.sign(payload);
   }
 
@@ -32,11 +32,12 @@ async createUser(signupDto: CreateSignupDto) {
     ...signupDto,
     password: hashedPassword
   });
-  this.userRepository.save(user);
-  return this.createToken(user);
+  await this.userRepository.save(user);
+  return this.createToken(user.id);
 }
 
 async validateUser(loginDto:LoginDto){
+  
     const user=await this.userRepository.findOne({where:{email:loginDto.email}});
     if(!user){
         throw new UnauthorizedException('Invalid credentials');
@@ -46,10 +47,10 @@ async validateUser(loginDto:LoginDto){
         throw new UnauthorizedException('Invalid credentials');
     }
     
-    return this.createToken(user);
+    return this.createToken(user.id);
 }
 
-async getUserWithExpenses(userId: number) {
+async getUserWithExpenses(userId: string) {
   return this.userRepository.findOne({
     where: { id: userId },
     relations: ['expenses'],

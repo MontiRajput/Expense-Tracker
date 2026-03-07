@@ -28,7 +28,5 @@ async  signup(@Body() signupDto:CreateSignupDto){
   async login(@Body() loginDto:LoginDto){
     return this.authService.validateUser(loginDto);
   }
-
-
     
 }
