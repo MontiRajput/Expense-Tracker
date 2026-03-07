@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { User } from 'src/auth/entities/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Expense {
@@ -16,9 +17,9 @@ export class Expense {
   @Column()
   category!: string;
 
-  @Column({ type: 'date' })
-  date!: string;
-
   @CreateDateColumn()
   createdAt!: Date;
+    
+  @ManyToOne(() => User, (user) => user.expenses)
+  user!: User;
 }

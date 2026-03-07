@@ -3,15 +3,11 @@ import {
   Controller,
   Post,
   Get,
-  HttpCode,
-  HttpStatus,
-  Request,
-  UseGuards
+  Param
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateSignupDto } from './dto/signup.dto';
 import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from './auth.guard';
 import { Public } from 'src/common/decoraters';
 import { LoginDto } from './dto/login.dto';
 
@@ -32,5 +28,7 @@ async  signup(@Body() signupDto:CreateSignupDto){
   async login(@Body() loginDto:LoginDto){
     return this.authService.validateUser(loginDto);
   }
+
+
     
 }

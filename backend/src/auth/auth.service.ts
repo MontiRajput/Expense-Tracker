@@ -48,4 +48,11 @@ async validateUser(loginDto:LoginDto){
     
     return this.createToken(user);
 }
+
+async getUserWithExpenses(userId: number) {
+  return this.userRepository.findOne({
+    where: { id: userId },
+    relations: ['expenses'],
+  });
+}
 }

@@ -11,8 +11,8 @@ export class CreateExpenseDto {
   @IsNumber()
   amount!: number;
 
-   @IsNotEmpty()
  @IsEnum(ExpenseCategory)
   category!: ExpenseCategory;
+ 
 
 }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Expense } from "src/expenses/entities/expense.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User{
@@ -13,4 +14,7 @@ email!:string;
 
 @Column()
 password!:string;
+
+ @OneToMany(() => Expense, (expense) => expense.user)
+  expenses!: Expense[];
 }
