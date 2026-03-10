@@ -1,0 +1,31 @@
+.expense {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.096);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* hide icon initially */
+.delete-icon {
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+/* show icon when hovering expense */
+.expense:hover .delete-icon {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .delete-icon {
+    opacity: 1;
+  }
+}

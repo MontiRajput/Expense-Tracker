@@ -1,0 +1,19 @@
+.large {
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px 20px;
+  margin: 20px;
+}
+body {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  font-family: "dm sans", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* overflow: hidden; */
+}

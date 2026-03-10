@@ -1,0 +1,52 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* button */
+.dropdown-btn {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.244);
+  cursor: pointer;
+  color: white;
+  border-radius: 6px;
+  width: 150px;
+}
+
+/* dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+
+  width: 150px;
+  color: white;
+  background: rgba(0, 0, 0, 0.97);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+  padding: 6px 0;
+
+  z-index: 1;
+}
+
+/* items */
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background: #f2f2f2;
+  color: black;
+}
+
+/* click outside layer */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}

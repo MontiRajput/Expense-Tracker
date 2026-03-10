@@ -8,18 +8,23 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User]),
-JwtModule.register({
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET || 'fsfjsaof3r',
       signOptions: { expiresIn: '1h' },
-    }),],
+    }),
+  ],
   controllers: [AuthController],
-  providers: [AuthService,
-    {//Nest will automatically bind AuthGuard to all endpoints
-    provide: APP_GUARD,
-    useClass: AuthGuard,
-  },],
+  providers: [
+    AuthService,
+    {
+      //Nest will automatically bind AuthGuard to all endpoints
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [AuthService],
 })
 export class AuthModule {}
