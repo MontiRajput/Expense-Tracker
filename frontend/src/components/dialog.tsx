@@ -14,6 +14,8 @@ const Dialog = ({ token, getUser }: any) => {
     setCategory,
     title,
     setTitle,
+    setUser,
+    setExpenses,
   } = useContext(GlobalContext) as any;
 
   const addExpense = async ({ title, amount, finalCategory }: any) => {
@@ -36,9 +38,7 @@ const Dialog = ({ token, getUser }: any) => {
       if (!res.ok) {
         throw new Error(data.message || "Failed to add expense");
       }
-
-      console.log("Expense added:", data);
-      getUser();
+      getUser(setUser, setExpenses);
       return data;
     } catch (error) {
       console.error("Error adding expense:", error);
@@ -49,8 +49,6 @@ const Dialog = ({ token, getUser }: any) => {
     e.preventDefault();
 
     const finalCategory = category == "Category" ? "Food" : category;
-
-    // console.log(category);
 
     await addExpense({
       title,

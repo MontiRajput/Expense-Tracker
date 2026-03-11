@@ -7,17 +7,22 @@ type Props = {
 };
 
 const ExpenseList = ({ expenses = [], token, getUser }: Props) => {
-  console.log(expenses);
   return (
     <div className="list">
-      {expenses?.map((expense) => (
-        <Expense
-          key={expense.id}
-          expense={expense}
-          token={token}
-          getUser={getUser}
-        />
-      ))}
+      {expenses.length == 0 ? (
+        <h3 style={{ color: "rgba(250,250,250,0.67)" }}>
+          Add your First Expense.
+        </h3>
+      ) : (
+        expenses?.map((expense) => (
+          <Expense
+            key={expense.id}
+            expense={expense}
+            token={token}
+            getUser={getUser}
+          />
+        ))
+      )}
     </div>
   );
 };

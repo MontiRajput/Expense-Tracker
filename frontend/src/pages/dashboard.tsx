@@ -5,6 +5,12 @@ import Dropdown from "../components/dropdown";
 import ExpenseList from "../components/expenseList";
 import Dialog from "../components/dialog";
 import { GlobalContext } from "../context/globalProvider";
+import {
+  getCurrentMonthSpending,
+  getExpenses,
+  getUser,
+  updateExpensesInRange,
+} from "../api/apiCalls";
 
 const Dashboard = () => {
   const token = localStorage.getItem("token");
@@ -18,78 +24,27 @@ const Dashboard = () => {
     setFilterCategory,
     expenses,
     setExpenses,
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
   } = useContext(GlobalContext) as any;
 
-  const getUser = async () => {
-    try {
-      const res = await fetch("http://localhost:3000/auth/profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-      setUser(data);
-      setExpenses(data.expenses || []);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  };
-
-  const getExpenses = async () => {
-    if (!user) return;
-
-    try {
-      if (filterCategory === "All Categories") {
-        setExpenses(user.expenses || []);
-        return;
-      }
-
-      const res = await fetch(
-        `http://localhost:3000/expenses?category=${filterCategory}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      const data = await res.json();
-      setExpenses(data || []);
-    } catch (error) {
-      console.error("Error fetching expenses:", error);
-    }
-  };
-
-  function getCurrentMonthSpending(expenses: any[] = []) {
-    const now = new Date();
-
-    return expenses.reduce((total, expense) => {
-      const date = new Date(expense.createdAt);
-
-      if (
-        date.getMonth() === now.getMonth() &&
-        date.getFullYear() === now.getFullYear()
-      ) {
-        return total + Number(expense.amount);
-      }
-
-      return total;
-    }, 0);
-  }
-
-  const spend = getCurrentMonthSpending(expenses);
+  const spend = getCurrentMonthSpending(user?.expenses || []);
 
   useEffect(() => {
-    getUser();
+    getUser(setUser, setExpenses);
   }, []);
 
   useEffect(() => {
     if (user) {
-      getExpenses();
+      getExpenses(filterCategory, setExpenses, user);
     }
   }, [filterCategory, user]);
 
+  useEffect(() => {
+    updateExpensesInRange(startDate, endDate, setExpenses);
+  }, [startDate, endDate]);
   if (!user) {
     return <div>Loading...</div>;
   }
@@ -119,12 +74,20 @@ const Dashboard = () => {
 
           <div>
             <span className="badge badge-custom outline">From</span>
-            <input type="date" className="date" />
+            <input
+              type="date"
+              className="date"
+              onChange={(e) => setStartDate(e.target.value)}
+            />
           </div>
 
           <div>
             <span className="badge badge-custom outline">To</span>
-            <input type="date" className="date" />
+            <input
+              type="date"
+              className="date"
+              onChange={(e) => setEndDate(e.target.value)}
+            />
           </div>
         </div>
 

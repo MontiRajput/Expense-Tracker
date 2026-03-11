@@ -1,8 +1,19 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./button.tsx";
 import "./navbar.css";
-const navbar = () => {
-  const token = localStorage.getItem("token");
+import { useContext } from "react";
+import { GlobalContext } from "../context/globalProvider.tsx";
+
+const Navbar = () => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const { user } = useContext(GlobalContext) as any;
+
   return (
     <nav id="navbar">
       <div id="logo-container">
@@ -11,12 +22,16 @@ const navbar = () => {
         </div>
         <h3>Expense Tracker</h3>
       </div>
-      {!token && (
+
+      {user ? (
+        <Button value="Logout" isStyle={true} onClick={logout} />
+      ) : (
         <div className="btns">
           <Link to="/login">
             <Button value="Login" isStyle={true} />
           </Link>
-          <Link to={"/signup"}>
+
+          <Link to="/signup">
             <Button value="Signup" />
           </Link>
         </div>
@@ -25,4 +40,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;
