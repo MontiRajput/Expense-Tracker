@@ -5,12 +5,13 @@ type Expense = {
   category: string;
   createdAt: string;
 };
-const token = localStorage.getItem("token");
 
 export const getUser = async (
   setUser: (user: any) => void,
   setExpenses: (expenses: Expense[]) => void,
 ) => {
+  const token = localStorage.getItem("token"); // ✅ move here
+
   try {
     const res = await fetch(
       "https://expense-tracker-2-z4xh.onrender.com/auth/profile",
@@ -26,7 +27,6 @@ export const getUser = async (
     }
 
     const data = await res.json();
-    console.log(setUser);
     setUser(data);
     setExpenses(data.expenses ?? []);
   } catch (error) {
@@ -61,6 +61,7 @@ export const getExpenses = async (
       setExpenses(user?.expenses ?? []);
       return;
     }
+    const token = localStorage.getItem("token");
 
     const res = await fetch(
       `https://expense-tracker-2-z4xh.onrender.com/expenses?category=${filterCategory}`,
@@ -88,7 +89,7 @@ export const updateExpensesInRange = async (
   setExpenses: (expenses: Expense[]) => void,
 ) => {
   if (!startDate || !endDate) return;
-
+  const token = localStorage.getItem("token");
   try {
     const response = await fetch(
       `https://expense-tracker-2-z4xh.onrender.com/expenses?startDate=${startDate}&endDate=${endDate}`,
