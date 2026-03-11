@@ -14,12 +14,15 @@ const Expense = ({
   const { setUser, setExpenses } = useContext(GlobalContext) as any;
 
   const deleteExpense = async (expenseId: string) => {
-    await fetch(`http://localhost:3000/expenses/${expenseId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
+    await fetch(
+      `expense-tracker-six-beta-obi0f5x34v.vercel.app/expenses/${expenseId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
 
     console.log("Deleted", expenseId);
 
