@@ -17,13 +17,16 @@ const Signup = () => {
       password,
     };
 
-    const response = await fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://expense-tracker-2-z4xh.onrender.com/auth/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       },
-      body: JSON.stringify(userData),
-    });
+    );
     const data = await response.json();
     if (!response.ok) {
       setError(data.message || "Signup failed");

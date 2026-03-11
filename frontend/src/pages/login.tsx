@@ -15,13 +15,16 @@ const Login = () => {
       password,
     };
 
-    const response = await fetch("http://localhost:3000/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://expense-tracker-2-z4xh.onrender.com/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
       },
-      body: JSON.stringify(userData),
-    });
+    );
     const data = await response.json();
     if (!response.ok) {
       setError(data.message || "Login failed");

@@ -12,11 +12,14 @@ export const getUser = async (
   setExpenses: (expenses: Expense[]) => void,
 ) => {
   try {
-    const res = await fetch("http://localhost:3000/auth/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const res = await fetch(
+      "https://expense-tracker-2-z4xh.onrender.com/auth/profile",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
 
     if (!res.ok) {
       throw new Error("Failed to fetch user");
@@ -60,7 +63,7 @@ export const getExpenses = async (
     }
 
     const res = await fetch(
-      `http://localhost:3000/expenses?category=${filterCategory}`,
+      `https://expense-tracker-2-z4xh.onrender.com/expenses?category=${filterCategory}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -88,7 +91,7 @@ export const updateExpensesInRange = async (
 
   try {
     const response = await fetch(
-      `http://localhost:3000/expenses?startDate=${startDate}&endDate=${endDate}`,
+      `https://expense-tracker-2-z4xh.onrender.com/expenses?startDate=${startDate}&endDate=${endDate}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
