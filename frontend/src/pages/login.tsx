@@ -1,8 +1,11 @@
 import "./signup.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../api/apiCalls";
+import { GlobalContext } from "../context/globalProvider";
 
 const Login = () => {
+  const { setUser, setExpenses } = useContext(GlobalContext) as any;
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +38,7 @@ const Login = () => {
     }
 
     localStorage.setItem("token", data.access_token);
-
+    await getUser(setUser, setExpenses);
     navigate("/dashboard");
   };
   return (
