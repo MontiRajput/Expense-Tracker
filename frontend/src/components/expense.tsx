@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import Button from "./button";
 import "./expense.css";
 import { GlobalContext } from "../context/globalProvider";
 
