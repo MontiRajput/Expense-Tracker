@@ -15,7 +15,7 @@ const Expense = ({
 
   const deleteExpense = async (expenseId: string) => {
     await fetch(
-      `expense-tracker-six-beta-obi0f5x34v.vercel.app/expenses/${expenseId}`,
+      `https://expense-tracker-2-z4xh.onrender.com/expenses/${expenseId}`,
       {
         method: "DELETE",
         headers: {
